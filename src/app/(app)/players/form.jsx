@@ -87,10 +87,25 @@ export const AddPlayer = () => {
 }
 
 export const DeletePlayer = ({id}) => {
+  const handleDelete = (e) => {
+    e.preventDefault();
+    
+    toast("Yakin hapus pemain ini?", {
+      action: {
+        label: "Hapus",
+        onClick: () => {
+          e.target.closest('form').submit();
+          toast.success("Pemain dihapus!");
+        }
+      },
+      cancel: { label: "Batal" }
+    });
+  };
+
   return (
     <form action={deletePlayerAction}>
       <Input hidden name="id" value={id} readOnly />
-      <Button className="cursor-pointer" variant="destructive">
+      <Button className="cursor-pointer" variant="destructive" onClick={handleDelete}>
         Hapus
       </Button>
     </form>
